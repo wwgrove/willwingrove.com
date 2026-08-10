@@ -405,7 +405,7 @@ function ProjectsSection() {
         <SectionLabel>Selected Work</SectionLabel>
         <ProfileHero onOpen={() => setProfileOpen(true)} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'repeat(auto-fit, minmax(460px, 1fr))', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1fr 1fr', gap: 20 }}>
           {PROJECTS.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} onOpen={() => setOpenProjectId(p.id)} />
           ))}
