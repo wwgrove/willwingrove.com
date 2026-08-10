@@ -49,6 +49,7 @@ interface Spec { label: string; value: string }
 interface Project {
   id: string; icon: string; title: string; subtitle: string; summary: string
   boardCount: number
+  boardUrls?: string[]
   processUrls: string[]; captions: string[]; specs: Spec[]
 }
 
@@ -71,7 +72,18 @@ const PLACEHOLDER_SUMMARY =
   'Project description goes here. Describe the design challenge, your process, key decisions, and the final outcome.'
 
 const PROJECTS: Project[] = [
-  { id: 'p01', icon: '📐', title: 'Project 01', subtitle: 'Project Type · Year', boardCount: 4, summary: PLACEHOLDER_SUMMARY, processUrls: PLACEHOLDER_PROCESS, captions: ['Sketch Exploration', 'Development', 'Final Render'], specs: PLACEHOLDER_SPECS },
+  {
+    id: 'p01',
+    icon: '🚉',
+    title: 'RRCRC Connection',
+    subtitle: 'Industrial Design · 2024',
+    boardCount: 1,
+    boardUrls: ['https://images.squarespace-cdn.com/content/v1/672a65d93e4fd33eb87b0cbe/c05910bd-b27d-4809-8891-2925b1d43a0a/rrcrcconnectionFINALBOARDS.png?format=2500w'],
+    summary: PLACEHOLDER_SUMMARY,
+    processUrls: PLACEHOLDER_PROCESS,
+    captions: ['Sketch Exploration', 'Development', 'Final Render'],
+    specs: PLACEHOLDER_SPECS,
+  },
   { id: 'p02', icon: '📐', title: 'Project 02', subtitle: 'Project Type · Year', boardCount: 4, summary: PLACEHOLDER_SUMMARY, processUrls: PLACEHOLDER_PROCESS, captions: ['Sketch Exploration', 'Development', 'Final Render'], specs: PLACEHOLDER_SPECS },
   { id: 'p03', icon: '📐', title: 'Project 03', subtitle: 'Project Type · Year', boardCount: 4, summary: PLACEHOLDER_SUMMARY, processUrls: PLACEHOLDER_PROCESS, captions: ['Sketch Exploration', 'Development', 'Final Render'], specs: PLACEHOLDER_SPECS },
   { id: 'p04', icon: '📐', title: 'Project 04', subtitle: 'Project Type · Year', boardCount: 4, summary: PLACEHOLDER_SUMMARY, processUrls: PLACEHOLDER_PROCESS, captions: ['Sketch Exploration', 'Development', 'Final Render'], specs: PLACEHOLDER_SPECS },
@@ -137,7 +149,9 @@ function BoardViewer({ project, onClose }: { project: Project; onClose: () => vo
         <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '24px 24px 32px', display: 'flex', flexDirection: 'column', gap: 20, background: '#1a1a1a', scrollbarWidth: 'thin' as const, scrollbarColor: `${DARK_GRAY} #111` }}>
           {Array.from({ length: project.boardCount }).map((_, i) => (
             <div key={i} style={{ flexShrink: 0 }}>
-              <BoardPlaceholder title={project.title} index={i} />
+              {project.boardUrls?.[i]
+                ? <img src={project.boardUrls[i]} alt={`${project.title} — Board ${String(i + 1).padStart(2, '0')}`} style={{ width: '100%', display: 'block', ...sunken }} />
+                : <BoardPlaceholder title={project.title} index={i} />}
               <div style={{ background: '#111', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontFamily: CHROME, fontSize: 9, color: '#444', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Board {String(i + 1).padStart(2, '0')}</span>
                 <div style={{ flex: 1, height: 0, borderTop: '1px solid #222' }} />
